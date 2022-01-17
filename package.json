@@ -1,0 +1,42 @@
+{
+  "name": "tse-database-parser",
+  "version": "0.0.1",
+  "description": "A simple CLI parser to crunch public CSV data from the Supreme Electoral Court in Brazil. This tool can be used to provide statistical analysis, format conversion (currently CSV-->JOSN) & database parsing (currently MongoDB), providing a streamlined way to keep up with official updates from historical electoral databases.",
+  "main": "app.ts",
+  "bin": { "tseparser": "./dist/src/bin/app.js" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node src/bin/app.ts",
+    "prestart": "rm -rf ./dist && tsc -p .",
+    "start": "node dist/src/bin/app.js",
+    "prebuild": "rm -rf ./dist",
+    "build": "tsc -p .",
+    "build:prepare": "rm -rf ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unimatrix2/tse-database-parser.git"
+  },
+  "author": "Danny Nisenbaum (unimatrix2)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unimatrix2/tse-database-parser/issues"
+  },
+  "homepage": "https://github.com/unimatrix2/tse-database-parser#readme",
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/node": "^17.0.8",
+    "@types/papaparse": "^5.3.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "commander": "^8.3.0",
+    "configstore": "^6.0.0",
+    "inquirer": "^8.2.0",
+    "mongoose": "^6.1.6",
+    "npm-run-all": "^4.1.5",
+    "papaparse": "^5.3.1"
+  }
+}
