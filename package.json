@@ -2,17 +2,17 @@
   "name": "tse-database-parser",
   "version": "0.0.1",
   "description": "A simple CLI parser to crunch public CSV data from the Supreme Electoral Court in Brazil. This tool can be used to provide statistical analysis, format conversion (currently CSV-->JOSN) & database parsing (currently MongoDB), providing a streamlined way to keep up with official updates from historical electoral databases.",
-  "main": "app.ts",
+  "main": "tseparser.ts",
   "bin": {
-    "tseparser": "./dist/src/bin/app.js"
+    "tseparser": "./dist/src/bin/tseparser.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/bin/app.ts",
+    "dev": "ts-node src/bin/tseparser.ts",
     "prestart": "rm -rf ./dist && tsc -p .",
-    "start": "node dist/src/bin/app.js",
+    "start": "node dist/src/bin/tseparser.js",
     "prebuild": "rm -rf ./dist",
-    "build": "tsc -p .",
+    "build": "tsc -p . && chmod +x dist/src/bin/tseparser.js",
     "build:prepare": "rm -rf ./dist"
   },
   "repository": {
