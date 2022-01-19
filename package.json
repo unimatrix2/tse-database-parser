@@ -27,6 +27,7 @@
   "homepage": "https://github.com/unimatrix2/tse-database-parser#readme",
   "devDependencies": {
     "@types/commander": "^2.12.2",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^17.0.8",
     "@types/papaparse": "^5.3.1",
     "ts-node": "^10.4.0",
