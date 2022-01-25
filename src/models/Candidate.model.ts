@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model} from 'mongoose';
+import { ICandidateModel } from '../../@types/tseparser/src/models';
 
 const tseCandidateSchema = new Schema({
     DT_GERACAO: { type: String },
@@ -66,6 +67,6 @@ const tseCandidateSchema = new Schema({
     ST_CANDIDATO_INSERIDO_URNA: { type: String, index: true },
 }, { timestamps: true });
 
-const TseCandidate = model('Candidates', tseCandidateSchema);
+const TseCandidate: ICandidateModel = model('Candidates', tseCandidateSchema);
 
 export default TseCandidate;
