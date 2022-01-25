@@ -1,7 +1,5 @@
-import { connection } from 'mongoose';
-
 import AppError from '../error/AppError';
-import connect from '../configs/db.config';
+import { mongoConnect, mongoDisconnect } from '../configs/db.config';
 import { ICandidate } from '../..';
 import { batchMaker, insertManyBatch, singleSaveLoop } from './db.lib';
 
@@ -10,9 +8,9 @@ export const singleDocumentImport = async (
 	url: string
 ) => {
 	try {
-		await connect(url);
+		await mongoConnect(url);
 		await singleSaveLoop(data);
-		await connection.close();
+		await mongoDisconnect();
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
@@ -21,8 +19,6 @@ export const singleDocumentImport = async (
 			step: 'Connect',
 		});
 	}
-
-	connection.close();
 };
 
 export const batchDocumentImport = async (
@@ -30,10 +26,10 @@ export const batchDocumentImport = async (
 	url: string
 ) => {
 	try {
-		await connect(url);
+		await mongoConnect(url);
 		const batches = batchMaker(data);
 		await insertManyBatch(batches);
-		await connection.close();
+		await mongoDisconnect();
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
