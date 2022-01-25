@@ -3,8 +3,7 @@ import { ICandidate } from '../..';
 import { batchMaker, insertManyBatch, singleSaveLoop } from './db.lib';
 
 export const singleDocumentImport = async (
-	data: ICandidate[],
-	url: string
+	data: ICandidate[]
 ) => {
 	try {
 		await singleSaveLoop(data);
@@ -19,8 +18,7 @@ export const singleDocumentImport = async (
 };
 
 export const batchDocumentImport = async (
-	data: ICandidate[],
-	url: string
+	data: ICandidate[]
 ) => {
 	try {
 		const batches = batchMaker(data);
