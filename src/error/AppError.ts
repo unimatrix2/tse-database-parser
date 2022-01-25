@@ -1,5 +1,6 @@
-import ErrorParams from '../interfaces/error';
 import 'colors';
+
+import { ErrorParams } from '../../@types/tseparser/src/error';
 
 export default class AppError extends Error {
 	method: string;
