@@ -1,6 +1,6 @@
 import 'colors';
 
-import { ErrorParams } from '../../@types/tseparser/src/error';
+import { ErrorParams } from '../..';
 
 const optionalParamsMapper = (
 	optional: string | number | undefined
