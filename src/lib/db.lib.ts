@@ -2,9 +2,7 @@ import AppError from '../error/AppError';
 import { ICandidate, ICandidateDocument } from '../..';
 import TseCandidate from '../models/Candidate.model';
 
-export const insertManyBatch = async (
-	data: ICandidate[][]
-): Promise<void> => {
+export const insertManyBatch = async (data: ICandidate[][]): Promise<void> => {
 	for (const docArray of data) {
 		try {
 			await TseCandidate.insertMany(docArray);
@@ -29,9 +27,7 @@ export const insertManyBatch = async (
 	}
 };
 
-export const singleSaveLoop = async (
-	data: ICandidate[]
-): Promise<void> => {
+export const singleSaveLoop = async (data: ICandidate[]): Promise<void> => {
 	for (const candidate of data) {
 		try {
 			const document: ICandidateDocument = new TseCandidate(candidate);
@@ -57,9 +53,7 @@ export const singleSaveLoop = async (
 	}
 };
 
-export const batchMaker = (
-	data: ICandidate[]
-): ICandidate[][] => {
+export const batchMaker = (data: ICandidate[]): ICandidate[][] => {
 	const size: number = 10000;
 	const length: number = Math.ceil(data.length / size);
 	const documentArray: ICandidate[][] = [];
