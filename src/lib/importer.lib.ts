@@ -2,91 +2,44 @@ import { connection } from 'mongoose';
 
 import AppError from '../error/AppError';
 import connect from '../configs/db.config';
-import TseCandidate from '../models/Candidate.model';
-import { ICandidateDocument } from './../../@types/tseparser/src/models/index.d';
+import { ICandidateDocument } from '../..';
+import { batchMaker, insertManyBatch, singleSaveLoop } from './db.lib';
 
-export const singleDocumentImportLoop = async (
+export const singleDocumentImport = async (
 	data: ICandidateDocument[],
 	url: string
 ) => {
 	try {
 		await connect(url);
+		await singleSaveLoop(data);
+		await connection.close();
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
 			method: 'singleDocumentImportLoop',
 			module: 'ImporterLib',
-			step: 'Connect'
-		})
+			step: 'Connect',
+		});
 	}
-	for (const candidate of data) {
-		try {
-			const document: ICandidateDocument = new TseCandidate(candidate);
-			await document.save();
-		} catch (error: any) {
-			if (error.keyValue) {
-				console.log(error); // This is here because this specific error case will be handled specially and I need to know what error type is being thrown
-				throw new AppError({
-					message: error.message,
-					method: 'singleDocumentImportLoop',
-					module: 'ImporterLib',
-					step: 'Loop',
-					field: error.keyValue
-				});
-			}
-			throw new AppError({
-				message: error.message,
-				method: 'singleDocumentImportLoop',
-				module: 'ImporterLib',
-				step: 'Loop'
-			});
-		}
-	}
+
 	connection.close();
 };
 
-export const batchDocumentImportLoop = async (
+export const batchDocumentImport = async (
 	data: ICandidateDocument[],
 	url: string
 ) => {
 	try {
 		await connect(url);
+		const batches = batchMaker(data);
+		await insertManyBatch(batches);
+		await connection.close();
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
 			method: 'batchDocumentImportLoop',
 			module: 'ImporterLib',
-			step: 'Connect'
+			step: 'Connect',
 		});
 	}
-	const length = data.length;
-	const documentArray: ICandidateDocument[][] = [];
-	for (let i = 0; i < length; i += 1) {
-		i === 0
-			? documentArray.push(data.slice(i, i + 5000))
-			: documentArray.push(data.slice((i * 5000) + 1, (i * 5000) + 5000));
-	}
-	for (const docArray of documentArray) {
-		try {
-			await TseCandidate.insertMany(docArray);
-		} catch (error: any) {
-			if (error.keyValue) {
-				console.log(error); // This is here because this specific error case will be handled specially and I need to know what error type is being thrown
-				throw new AppError({
-					message: error.message,
-					method: 'singleDocumentImportLoop',
-					module: 'ImporterLib',
-					step: 'Loop',
-					field: error.keyValue
-				});
-			}
-			throw new AppError({
-				message: error.message,
-				method: 'singleDocumentImportLoop',
-				module: 'ImporterLib',
-				step: 'Loop'
-			});
-		}
-	}
-	connection.close();
-}
+};
