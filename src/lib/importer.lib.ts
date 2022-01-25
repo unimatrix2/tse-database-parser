@@ -1,3 +1,5 @@
+import { connection } from 'mongoose';
+
 import AppError from '../error/AppError';
 import connect from '../configs/db.config';
 import TseCandidate from '../models/Candidate.model';
@@ -40,6 +42,7 @@ export const singleDocumentImportLoop = async (
 			});
 		}
 	}
+	connection.close();
 };
 
 export const batchDocumentImportLoop = async (
@@ -85,4 +88,5 @@ export const batchDocumentImportLoop = async (
 			});
 		}
 	}
+	connection.close();
 }
