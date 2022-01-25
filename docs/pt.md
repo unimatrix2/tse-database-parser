@@ -44,11 +44,11 @@ Opções:
 
 Comandos:
 - parse           Transpilar dados
-- help [command]  exibe a ajuda do comando
+- help [comando]  exibe a ajuda do comando
 ```
 ### Parse
 ```
-Usage: parse [options] <file> <MongoDB URI>
+Uso: parse [opções] <arquivo> <MongoDB URI>
 
 Argumentos:
 - file          Caminho absoluto do arquivo a ser transpilado
