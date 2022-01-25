@@ -1,5 +1,4 @@
 import AppError from '../error/AppError';
-import { mongoConnect, mongoDisconnect } from '../configs/db.config';
 import { ICandidate } from '../..';
 import { batchMaker, insertManyBatch, singleSaveLoop } from './db.lib';
 
@@ -8,9 +7,7 @@ export const singleDocumentImport = async (
 	url: string
 ) => {
 	try {
-		await mongoConnect(url);
 		await singleSaveLoop(data);
-		await mongoDisconnect();
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
@@ -26,10 +23,8 @@ export const batchDocumentImport = async (
 	url: string
 ) => {
 	try {
-		await mongoConnect(url);
 		const batches = batchMaker(data);
 		await insertManyBatch(batches);
-		await mongoDisconnect();
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
