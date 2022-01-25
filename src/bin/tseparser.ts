@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 import pkg from '../../package.json';
 
-const program = new Command();
+const program: Command = new Command();
 
 program
     .version(pkg.version)
