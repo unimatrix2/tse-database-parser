@@ -60,12 +60,11 @@ export const singleSaveLoop = async (
 export const batchMaker = (
 	data: ICandidate[]
 ): ICandidate[][] => {
-	const length = data.length;
+	const size: number = 10000;
+	const length: number = Math.ceil(data.length / size);
 	const documentArray: ICandidate[][] = [];
 	for (let i = 0; i < length; i += 1) {
-		i === 0
-			? documentArray.push(data.slice(i, i + 10000))
-			: documentArray.push(data.slice(i * 10000 + 1, i * 10000 + 10000));
+		documentArray.push(data.slice(i * size, i * size + size));
 	}
 	return documentArray;
 };
