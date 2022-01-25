@@ -1,12 +1,15 @@
-import mongoose from 'mongoose';
+import { connect, connection } from 'mongoose';
 
-const connect = async (url: string) => {
+export const mongoConnect = async (url: string) => {
 	try {
-		await mongoose.connect(url);
+		await connect(url);
 		console.log('Database connected');
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export default connect;
+export const mongoDisconnect = async () => {
+	await connection.close();
+	console.log('Database disconnected');
+};
