@@ -1,17 +1,15 @@
-import { setCache, clearCache } from '../lib/store.lib';
 import { parse } from '../lib/parser.lib';
 import AppError from '../error/AppError';
 
-export const parser = async (url: string) => {
+export const parser = async (pathUri: string) => {
 	try {
-		clearCache();
-		const parsedData = await parse(url);
-		setCache(parsedData);
+		const parsedData = await parse(pathUri);
 	} catch (error: any) {
 		new AppError({
 			message: error.message,
 			method: 'Parser',
-			module: 'Parse-Service'
+			module: 'Parse-Service',
+			...error
 		});
 	}
 }
