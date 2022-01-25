@@ -1,2 +1,5 @@
-# tse-database-parser
-A simple CLI parser for public electoral databases in Brazil
+# Docs
+
+For the English version, go [here](./docs/en.md)
+
+Para a versão em português, clique [aqui](./docs/pt.md)
