@@ -1,4 +1,4 @@
-import { ICandidate } from './../../index.d';
+import { ICandidate, IParseResult } from './../../index.d';
 import Papa from 'papaparse';
 import fs from 'fs';
 import 'colors';
@@ -11,7 +11,7 @@ export const parse = (url: string): Promise<ICandidate[]> => {
 			encoding: 'latin1',
 			header: true,
 			skipEmptyLines: true,
-			complete: (results) => {
+			complete: (results: IParseResult) => {
 				console.log(`${String(results.data.length).green} entries parsed`);
 				console.log(`${String(results.errors.length).green} parsing errors`);
 				if (results.errors.length > 0) {

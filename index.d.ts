@@ -1,4 +1,5 @@
 import { Document, Model, ObjectId } from 'mongoose';
+import { ParseResult } from 'papaparse';
 
 export interface ErrorParams {
 	message: any;
@@ -93,3 +94,7 @@ export function batchDocumentImportLoop(
 
 export interface ICandidateDocument extends Document<ICandidateModel> {}
 export interface ICandidateModel extends Model<ICandidateDb> {}
+
+export interface IParseResult extends Omit<ParseResult, 'data'> {
+	data: ICandidate[]
+}
