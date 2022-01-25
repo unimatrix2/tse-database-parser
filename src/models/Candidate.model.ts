@@ -1,5 +1,5 @@
 import { Schema, model} from 'mongoose';
-import { ICandidateModel } from '../../@types/tseparser/src/models';
+import { ICandidateModel } from '../..';
 
 const tseCandidateSchema = new Schema({
     DT_GERACAO: { type: String },
