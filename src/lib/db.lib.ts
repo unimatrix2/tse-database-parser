@@ -64,8 +64,8 @@ export const batchMaker = (
 	const documentArray: ICandidate[][] = [];
 	for (let i = 0; i < length; i += 1) {
 		i === 0
-			? documentArray.push(data.slice(i, i + 5000))
-			: documentArray.push(data.slice(i * 5000 + 1, i * 5000 + 5000));
+			? documentArray.push(data.slice(i, i + 10000))
+			: documentArray.push(data.slice(i * 10000 + 1, i * 10000 + 10000));
 	}
 	return documentArray;
 };
