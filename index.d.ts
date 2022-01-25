@@ -10,9 +10,6 @@ export interface ErrorParams {
 }
 
 export interface ICandidate {
-	_id: ObjectId;
-	createdAt: Date;
-	updatedAt: Date;
 	DT_GERACAO: string;
 	HH_GERACAO: string;
 	ANO_ELEICAO: number;
@@ -78,6 +75,12 @@ export interface ICandidate {
 	ST_CANDIDATO_INSERIDO_URNA: string;
 }
 
+export interface ICandidateDb extends ICandidate {
+	_id: ObjectId;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
 export function singleDocumentImportLoop(
 	data: ICandidateDocument[],
 	url: string
@@ -89,4 +92,4 @@ export function batchDocumentImportLoop(
 ): Promise<void>;
 
 export interface ICandidateDocument extends Document<ICandidateModel> {}
-export interface ICandidateModel extends Model<ICandidateDocument> {}
+export interface ICandidateModel extends Model<ICandidateDb> {}
