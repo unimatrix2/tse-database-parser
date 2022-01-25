@@ -1,6 +1,7 @@
-import AppError from '../error/AppError';
 import { ICandidate } from '../..';
-import { batchMaker, insertManyBatch, singleSaveLoop } from './db.lib';
+import { batchMaker } from './util.lib';
+import AppError from '../error/AppError';
+import { insertManyBatch, singleSaveLoop } from './db.lib';;
 
 export const singleDocumentImport = async (data: ICandidate[]) => {
 	try {
