@@ -12,8 +12,7 @@
     "prestart": "rm -rf ./dist && tsc -p .",
     "start": "node dist/src/bin/tseparser.js",
     "prebuild": "rm -rf ./dist",
-    "build": "tsc -p . && chmod +x dist/src/bin/tseparser.js",
-    "build:prepare": "rm -rf ./dist"
+    "build": "tsc -p . && chmod +x dist/src/bin/tseparser.js"
   },
   "repository": {
     "type": "git",
