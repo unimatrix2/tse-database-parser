@@ -1,6 +1,7 @@
 import { Document, Model, ObjectId } from 'mongoose';
 import { ParseResult } from 'papaparse';
 
+// Data Interfaces
 export interface ErrorParams {
 	message: any;
 	method: string;
@@ -82,19 +83,38 @@ export interface ICandidateDb extends ICandidate {
 	updatedAt: Date;
 }
 
-export function singleDocumentImportLoop(
-	data: ICandidateDocument[],
-	url: string
-): Promise<void>;
+// ImporterLib Methods
+export declare const singleDocumentImport: (data: ICandidate[], url: string) => Promise<void>;
+export declare const batchDocumentImport: (data: ICandidate[], url: string) => Promise<void>;
 
-export function batchDocumentImportLoop(
-	data: ICandidateDocument[],
-	url: string
-): Promise<void>;
 
+// DbLib Methods
+export declare const insertManyBatch: (data: ICandidate[][]) => Promise<void>;
+
+// ParserLib Methods
+export declare const parse: (url: string) => Promise<ICandidate[]>;
+
+// ParseService Methods
+export declare const parser: (pathUri: string, mongoUri: string) => Promise<void>;
+
+// Mongoose Interfaces
 export interface ICandidateDocument extends Document<ICandidateModel> {}
 export interface ICandidateModel extends Model<ICandidateDb> {}
 
 export interface IParseResult extends Omit<ParseResult, 'data'> {
 	data: ICandidate[]
+}
+
+// DB Config Methods
+export declare const mongoConnect: (url: string) => Promise<void>;
+export declare const mongoDisconnect: () => Promise<void>;
+
+// Error Interfaces
+export declare class AppError extends Error {
+    method: string;
+    module: string;
+    step?: string;
+    index?: number;
+    field?: string;
+    constructor(params: ErrorParams);
 }
