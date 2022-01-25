@@ -33,8 +33,29 @@ Por enquanto só há 1 comando base: parse. Outros comandos estão no backlog ma
 sob demandas/necessidades de um projeto maior, portanto modelagem dinâmica, transpilação para outros formatos e bases de dados
 (como JSON, bases SQL), são recursos que não serão implementados por um bom tempo.
 
-parse possui os seguintes argumentos:
-- o caminho completo do arquivo CSV que deseja transpilar
-- a URI de conexão do servidor MongoDB ao qual deseja importar os dados transpilados.
+```
+Uso: tseparser [opções] [comando]
 
-Para mais ajuda, use ``` tseparser -h ``` ou  ``` tseparser parse -h ```
+Um simples transpilador de dados via CLI para processar dados CSV do Tribunal Superior Eleitoral do Brasil.
+
+Opções:
+- -V, --version   exibe a versão do programa
+- -h, --help      exibe a ajuda do programa
+
+Comandos:
+- parse           Transpilar dados
+- help [command]  exibe a ajuda do comando
+```
+### Parse
+```
+Usage: parse [options] <file> <MongoDB URI>
+
+Argumentos:
+- file          Caminho absoluto do arquivo a ser transpilado
+- MongoDB URI   A URI de conexão com o servidor MongoDB que deseja importar os dados
+
+Opções:
+- -u, --update  Indica que deseja atualizar uma base de dados já existente
+- -h, --help    exibe a ajuda do comando
+```
+Para ajuda offline, use ``` tseparser -h ``` ou  ``` tseparser parse -h ```

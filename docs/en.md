@@ -30,9 +30,29 @@ and that's it. Things will be simpler when it's published on NPM.
 Right now, there's only one base command: parse. More commands are backlogged but this tool is being developed
 needs-first as part of a major project, so dinamic modeling, multi parsing (JSON, SQL Databases, etc) won't come
 for some time.
+```
+Usage: tseparser [options] [command]
 
-parse has the following arguments:
-- the full path of the CSV file you wish to parse
-- the MongoDB connection URI you wish to import parsed data into.
+A simple CLI parser to crunch public CSV data from the Supreme Electoral Court in Brazil.
 
-For more help, use ``` tseparser -h ``` or  ``` tseparser parse -h ```
+Options:
+- -V, --version   output the version number
+- -h, --help      display help for command
+
+Commands:
+- parse           Handle parsing operations
+- help [command]  display help for command
+```
+### Parse
+```
+Usage: parse [options] <file> <MongoDB URI>
+
+Arguments:
+- file          Path of the file to be parsed (needs absolute path)
+- MongoDB URI   The MongoDB connection URI for parsing
+
+Options:
+- -u, --update  Indicates you wish to update an existing database
+- -h, --help    display help for command
+```
+For offline help, use ``` tseparser -h ``` or  ``` tseparser parse -h ```
