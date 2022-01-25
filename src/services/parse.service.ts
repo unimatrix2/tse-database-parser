@@ -1,15 +1,16 @@
+import { batchDocumentImport } from './../lib/importer.lib';
 import { parse } from '../lib/parser.lib';
 import AppError from '../error/AppError';
+import { mongoConnect, mongoDisconnect } from '../configs/db.config';
 
-export const parser = async (pathUri: string) => {
+export const parser = async (pathUri: string, mongoUri: string) => {
 	try {
 		const parsedData = await parse(pathUri);
+		await mongoConnect(mongoUri);
+		await batchDocumentImport(parsedData);
+		await mongoDisconnect();
 	} catch (error: any) {
-		new AppError({
-			message: error.message,
-			method: 'Parser',
-			module: 'Parse-Service',
-			...error
-		});
+		console.log(error);
+		new AppError(error);
 	}
 }
