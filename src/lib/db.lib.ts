@@ -1,9 +1,9 @@
 import AppError from '../error/AppError';
-import { ICandidateDocument } from '../..';
+import { ICandidate, ICandidateDocument } from '../..';
 import TseCandidate from '../models/Candidate.model';
 
 export const insertManyBatch = async (
-	data: ICandidateDocument[][]
+	data: ICandidate[][]
 ): Promise<void> => {
 	for (const docArray of data) {
 		try {
@@ -30,7 +30,7 @@ export const insertManyBatch = async (
 };
 
 export const singleSaveLoop = async (
-	data: ICandidateDocument[]
+	data: ICandidate[]
 ): Promise<void> => {
 	for (const candidate of data) {
 		try {
@@ -58,10 +58,10 @@ export const singleSaveLoop = async (
 };
 
 export const batchMaker = (
-	data: ICandidateDocument[]
-): ICandidateDocument[][] => {
+	data: ICandidate[]
+): ICandidate[][] => {
 	const length = data.length;
-	const documentArray: ICandidateDocument[][] = [];
+	const documentArray: ICandidate[][] = [];
 	for (let i = 0; i < length; i += 1) {
 		i === 0
 			? documentArray.push(data.slice(i, i + 5000))

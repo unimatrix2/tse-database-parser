@@ -2,11 +2,11 @@ import { connection } from 'mongoose';
 
 import AppError from '../error/AppError';
 import connect from '../configs/db.config';
-import { ICandidateDocument } from '../..';
+import { ICandidate } from '../..';
 import { batchMaker, insertManyBatch, singleSaveLoop } from './db.lib';
 
 export const singleDocumentImport = async (
-	data: ICandidateDocument[],
+	data: ICandidate[],
 	url: string
 ) => {
 	try {
@@ -26,7 +26,7 @@ export const singleDocumentImport = async (
 };
 
 export const batchDocumentImport = async (
-	data: ICandidateDocument[],
+	data: ICandidate[],
 	url: string
 ) => {
 	try {
