@@ -1,9 +1,10 @@
+import 'colors';
 import { ICandidate } from '../..';
 import { batchMaker } from './util.lib';
 import AppError from '../error/AppError';
 import { insertManyBatch, singleSaveLoop } from './db.lib';;
 
-export const singleDocumentImport = async (data: ICandidate[]) => {
+/* export const singleDocumentImport = async (data: ICandidate[]) => {
 	try {
 		await singleSaveLoop(data);
 	} catch (error: any) {
@@ -14,12 +15,13 @@ export const singleDocumentImport = async (data: ICandidate[]) => {
 			step: 'Connect',
 		});
 	}
-};
+}; */
 
 export const batchDocumentImport = async (data: ICandidate[]) => {
 	try {
 		const batches = batchMaker(data);
 		await insertManyBatch(batches);
+		console.log(`${batches.length} Batches parsed successfully`.green);
 	} catch (error: any) {
 		throw new AppError({
 			message: error.message,
