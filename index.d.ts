@@ -84,7 +84,6 @@ export interface ICandidateDb extends ICandidate {
 }
 
 // ImporterLib Methods
-export declare const singleDocumentImport: (data: ICandidate[], url: string) => Promise<void>;
 export declare const batchDocumentImport: (data: ICandidate[], url: string) => Promise<void>;
 
 
