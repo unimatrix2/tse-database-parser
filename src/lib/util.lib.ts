@@ -2,7 +2,7 @@ import { ICandidate } from '../..';
 import AppError from '../error/AppError';
 
 export const batchMaker = (data: ICandidate[]): ICandidate[][] => {
-	const size: number = 10000;
+	const size: number = 5000;
 	const length: number = Math.ceil(data.length / size);
 	const documentArray: ICandidate[][] = [];
 	for (let i = 0; i < length; i += 1) {
