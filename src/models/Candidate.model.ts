@@ -1,5 +1,4 @@
 import { Schema, model} from 'mongoose';
-import { ICandidateModel } from '../..';
 
 const tseCandidateSchema = new Schema({
     DT_GERACAO: { type: String },
@@ -67,6 +66,6 @@ const tseCandidateSchema = new Schema({
     ST_CANDIDATO_INSERIDO_URNA: { type: String, index: true },
 }, { timestamps: true });
 
-const TseCandidate: ICandidateModel = model('Candidates', tseCandidateSchema);
+const TseCandidate = model('Candidates', tseCandidateSchema);
 
 export default TseCandidate;

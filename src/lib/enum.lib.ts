@@ -1,6 +1,6 @@
 export const loggingColors = {
-    info: '[INFO] '.blue.bold,
-    warn: '[WARN] '.yellow.bold,
-    error: '[ERROR] '.red.bold,
-    success: '[OK] '.green.bold
+    info: '[INFO] '.blue,
+    warn: '[WARN] '.yellow,
+    error: '[ERROR] '.red,
+    success: '[OK] '.green
 }

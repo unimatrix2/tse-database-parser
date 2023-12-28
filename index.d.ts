@@ -96,10 +96,6 @@ export declare const parse: (url: string) => Promise<ICandidate[]>;
 // ParseService Methods
 export declare const parser: (pathUri: string, mongoUri: string) => Promise<void>;
 
-// Mongoose Interfaces
-export interface ICandidateDocument extends Document<ICandidateModel> {}
-export interface ICandidateModel extends Model<ICandidateDb> {}
-
 export interface IParseResult extends Omit<ParseResult, 'data'> {
 	data: ICandidate[]
 }

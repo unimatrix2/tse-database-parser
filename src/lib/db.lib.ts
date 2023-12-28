@@ -1,6 +1,5 @@
-import AppError from '../error/AppError';
 import TseCandidate from '../models/Candidate.model';
-import { ICandidate, ICandidateDocument } from '../..';
+import type { ICandidate } from '../..';
 import { insertionErrorHandler } from './util.lib';
 
 export const insertManyBatch = async (data: ICandidate[][]): Promise<void> => {
@@ -16,7 +15,7 @@ export const insertManyBatch = async (data: ICandidate[][]): Promise<void> => {
 export const singleSaveLoop = async (data: ICandidate[]): Promise<void> => {
 	for (const candidate of data) {
 		try {
-			const document: ICandidateDocument = new TseCandidate(candidate);
+			const document = new TseCandidate(candidate);
 			await document.save();
 		} catch (error: any) {
 			insertionErrorHandler(error, 'singleSaveLoop');
