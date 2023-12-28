@@ -25,20 +25,18 @@
   },
   "homepage": "https://github.com/unimatrix2/tse-database-parser#readme",
   "devDependencies": {
-    "@types/commander": "^2.12.2",
-    "@types/mongoose": "^5.11.97",
-    "@types/node": "^17.0.8",
-    "@types/papaparse": "^5.3.1",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.4"
+    "@types/node": "^20.10.5",
+    "@types/papaparse": "^5.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "colors": "^1.4.0",
-    "commander": "^8.3.0",
-    "conf": "^10.1.1",
-    "inquirer": "^8.2.0",
-    "mongoose": "^6.1.6",
+    "commander": "^11.1.0",
+    "conf": "^12.0.0",
+    "inquirer": "^9.2.12",
+    "mongoose": "^8.0.3",
     "npm-run-all": "^4.1.5",
-    "papaparse": "^5.3.1"
+    "papaparse": "^5.3.14"
   }
 }
