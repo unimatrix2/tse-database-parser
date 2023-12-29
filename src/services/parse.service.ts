@@ -1,16 +1,26 @@
-import { batchDocumentImport } from './../lib/importer.lib';
-import { parse } from '../lib/parser.lib';
+import 'colors';
+
+import type { ICandidate } from '../..';
 import AppError from '../error/AppError';
+import { parse } from '../lib/parser.lib';
+import TseCandidate from '../models/Candidate.model';
+import { loggingColors as log } from '../lib/enum.lib';
 import { mongoConnect, mongoDisconnect } from '../configs/db.config';
 
 export const parser = async (pathUri: string, mongoUri: string) => {
 	try {
-		const parsedData = await parse(pathUri);
 		await mongoConnect(mongoUri);
-		await batchDocumentImport(parsedData);
+		const iterator = parse<ICandidate>(pathUri);
+		const promises = [];
+		for await (const batch of iterator) {
+		promises.push(TseCandidate.insertMany(batch)
+			.then(() => console.log(`${log.success} Batch entries imported with success`))
+			.catch((err) => console.log(log.error, err))
+		);
+	}
+		await Promise.all(promises);
 		await mongoDisconnect();
 	} catch (error: any) {
-		console.log(error);
-		new AppError(error);
+		throw error instanceof AppError ? error : new AppError(error);
 	}
 }
