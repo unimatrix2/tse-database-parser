@@ -3,7 +3,7 @@ import 'colors';
 import { ErrorParams } from '../..';
 
 const optionalParamsMapper = (
-	optional: string | number | undefined
+	optional: string | number | undefined | any[]
 ): boolean => Boolean(optional) || String(optional) === '0';
 
 
@@ -12,7 +12,7 @@ export default class AppError extends Error {
 	module: string;
 	step?: string;
 	index?: number;
-	field?: string;
+	field?: string | any[];
 
 	constructor(params: ErrorParams) {
 		super();

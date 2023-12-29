@@ -8,7 +8,7 @@ export interface ErrorParams {
 	module: string;
 	step?: string;
 	index?: number;
-	field?: string;
+	field?: string | any[];
 }
 
 export interface ICandidate {
@@ -77,21 +77,8 @@ export interface ICandidate {
 	ST_CANDIDATO_INSERIDO_URNA: string;
 }
 
-export interface ICandidateDb extends ICandidate {
-	_id: ObjectId;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-// ImporterLib Methods
-export declare const batchDocumentImport: (data: ICandidate[], url: string) => Promise<void>;
-
-
-// DbLib Methods
-export declare const insertManyBatch: (data: ICandidate[][]) => Promise<void>;
-
 // ParserLib Methods
-export declare const parse: (url: string) => Promise<ICandidate[]>;
+export declare function parse<ICandidate>(url: string): AsyncGenerator<any, void, unknown>;
 
 // ParseService Methods
 export declare const parser: (pathUri: string, mongoUri: string) => Promise<void>;
@@ -110,6 +97,6 @@ export declare class AppError extends Error {
     module: string;
     step?: string;
     index?: number;
-    field?: string;
+    field?: string | any[];
     constructor(params: ErrorParams);
 }
