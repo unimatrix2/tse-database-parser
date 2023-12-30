@@ -11,11 +11,11 @@ export const parser = async (pathUri: string, mongoUri: string) => {
 		const iterator = parse(pathUri);
 		const promises = [];
 		for await (const batch of iterator) {
-		promises.push(TseCandidate.insertMany(batch)
-			.then(() => console.log(`${log.success}Batch entries imported with success`))
-			.catch((err) => console.log(log.error, err))
-		);
-	}
+			promises.push(TseCandidate.insertMany(batch)
+				.then(() => console.log(`${log.success}Batch entries imported with success`))
+				.catch((err) => console.log(log.error, err))
+			);
+		}
 		await Promise.all(promises);
 		await mongoDisconnect();
 	} catch (error) {
