@@ -2,10 +2,11 @@ import 'colors';
 import Papa from 'papaparse';
 import { createReadStream, createWriteStream } from 'fs';
 
-import AppError from '../error/AppError';
 import { loggingColors as log } from './enum.lib';
+import { handleParsedErrors } from './util.lib';
+import type { ICandidate } from '../..';
 
-export async function* parse<ICandidate>(url: string) {
+export async function* parse(url: string) {
 	const batchSize = 5000;
 	let batch: ICandidate[] = [];
 
@@ -19,20 +20,7 @@ export async function* parse<ICandidate>(url: string) {
 		skipEmptyLines: true,
 		delimiter: ';',
 		step: (results) => {
-			if (results.errors.length) {
-
-				const errorData = new AppError({
-					message:
-							'Errors were found on this document, verify these records were included on the database.',
-					method: 'parse',
-					module: 'ParserLib',
-					step: 'Step',
-					field: results.errors.map((err: any) => ({...err, data: results.data})),
-			});
-
-			console.log(log.error + 'Errors found on batch: ', results.errors);
-			logStream.write(JSON.stringify(errorData) + '\n');
-			}
+			if (results.errors.length) handleParsedErrors(results, logStream);
 			batch.push(results.data);
 			if (batch.length >= batchSize) {
 				logStream.write(JSON.stringify({ message: 'Batch parsed with success' }) + '\n');
@@ -42,19 +30,7 @@ export async function* parse<ICandidate>(url: string) {
 			}
 		},
 		complete: (results) => {
-			if (results.errors.length) {
-				const errorData = new AppError({
-					message:
-							'Errors were found on this document, verify these records were included on the database.',
-					method: 'parse',
-					module: 'ParserLib',
-					step: 'Step',
-					field: results.errors.map((err: any) => ({...err, data: results.data})),
-			});
-
-			console.log(log.error + 'Errors found on batch: ', results.errors);
-			logStream.write(JSON.stringify(errorData) + '\n');
-			}
+			if (results.errors.length) handleParsedErrors(results, logStream);
 			if (batch.length > 0) {
 				console.log(log.success + 'Last batch parsed with success!');
 				logStream.write(JSON.stringify({ message: 'Batch parsed with success' }) + '\n');

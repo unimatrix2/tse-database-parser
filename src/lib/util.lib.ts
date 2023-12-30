@@ -1,35 +1,21 @@
-import type { ICandidate } from '../..';
+import 'colors';
+import type { WriteStream } from 'fs';
+import type { ParseResult, ParseStepResult } from 'papaparse';
+
 import AppError from '../error/AppError';
+import { loggingColors as log } from './enum.lib';
+import type { ICandidate } from '../..';
 
-export const batchMaker = (data: ICandidate[]): ICandidate[][] => {
-	const size: number = 5000;
-	const length: number = Math.ceil(data.length / size);
-	const documentArray: ICandidate[][] = [];
-	for (let i = 0; i < length; i += 1) {
-		documentArray.push(data.slice(i * size, i * size + size));
-	}
-	return documentArray;
-};
-
-export const insertionErrorHandler = (
-	error: any,
-	method: string,
-	step?: string
-): void => {
-	if (error.keyValue) {
-		console.log(error); // This is here because this specific error case will be handled specially and I need to know what error type is being thrown
-		throw new AppError({
-			message: error.message,
-			method,
-			module: 'ImporterLib',
-			step,
-			field: error.keyValue,
-		});
-	}
-	throw new AppError({
-		message: error.message,
-		method,
-		module: 'ImporterLib',
-		step
+export function handleParsedErrors(results: ParseStepResult<ICandidate> | ParseResult<ICandidate>, stream: WriteStream): void {
+	const errorData = new AppError({
+		message:
+				'Errors were found on this document, verify these records were included on the database.',
+		method: 'parse',
+		module: 'ParserLib',
+		step: 'Step',
+		field: results.errors.map((err: any) => ({...err, data: results.data})),
 	});
-};
+
+	console.log(log.error + 'Errors found on batch: ', results.errors);
+	stream.write(JSON.stringify(errorData) + '\n');
+}
