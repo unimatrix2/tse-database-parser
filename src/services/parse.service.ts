@@ -1,6 +1,5 @@
 import 'colors';
 
-import type { ICandidate } from '../..';
 import AppError from '../error/AppError';
 import { parse } from '../lib/parser.lib';
 import TseCandidate from '../models/Candidate.model';
@@ -10,7 +9,7 @@ import { mongoConnect, mongoDisconnect } from '../configs/db.config';
 export const parser = async (pathUri: string, mongoUri: string) => {
 	try {
 		await mongoConnect(mongoUri);
-		const iterator = parse<ICandidate>(pathUri);
+		const iterator = parse(pathUri);
 		const promises = [];
 		for await (const batch of iterator) {
 		promises.push(TseCandidate.insertMany(batch)
