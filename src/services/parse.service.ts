@@ -19,7 +19,7 @@ export const parser = async (pathUri: string, mongoUri: string) => {
 	}
 		await Promise.all(promises);
 		await mongoDisconnect();
-	} catch (error: any) {
-		throw error instanceof AppError ? error : new AppError(error);
+	} catch (error) {
+		throw error;
 	}
 }
