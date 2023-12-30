@@ -14,7 +14,7 @@ export const parser = async (pathUri: string, mongoUri: string) => {
 		const promises = [];
 		for await (const batch of iterator) {
 		promises.push(TseCandidate.insertMany(batch)
-			.then(() => console.log(`${log.success} Batch entries imported with success`))
+			.then(() => console.log(`${log.success}Batch entries imported with success`))
 			.catch((err) => console.log(log.error, err))
 		);
 	}

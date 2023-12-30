@@ -11,7 +11,7 @@ export interface ErrorParams {
 	field?: string | any[];
 }
 
-export interface ICandidate {
+export declare interface ICandidate {
 	DT_GERACAO: string;
 	HH_GERACAO: string;
 	ANO_ELEICAO: number;

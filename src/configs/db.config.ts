@@ -7,11 +7,17 @@ export const mongoConnect = async (url: string) => {
 		await connect(url);
 		console.log(log.success + 'Database connected');
 	} catch (error) {
-		console.log(error);
+		console.log(log.error + 'Error connecting to database');
+		throw error;
 	}
 };
 
 export const mongoDisconnect = async () => {
-	await connection.close();
-	console.log(log.success + 'Database disconnected');
+	try {
+		await connection.close();
+		console.log(log.success + 'Database disconnected');
+	} catch (error) {
+		console.log(log.error + 'Error disconnecting from database');
+		throw error;
+	}
 };

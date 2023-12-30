@@ -9,8 +9,8 @@ export async function* parse<ICandidate>(url: string) {
 	const batchSize = 5000;
 	let batch: ICandidate[] = [];
 
-	let resolve: (arg0: ICandidate[] | { done: boolean }) => void;
-  let promise = new Promise(r => resolve = r);
+	let resolve: (value: ICandidate[] | { done: boolean }) => void;
+  	let promise = new Promise<ICandidate[] | { done: boolean }>(r => resolve = r);
 	const logStream = createWriteStream(__dirname + '/../../../log.ndjson', { flags: 'a' });
 
 	Papa.parse<ICandidate>(createReadStream(url), {
@@ -67,8 +67,8 @@ export async function* parse<ICandidate>(url: string) {
 	});
 
 	while (true) {
-		const result: any = await promise;
-		if (result.done) {
+		const result = await promise;
+		if (!(result instanceof Array) && result.done) {
 			logStream.close();
 			break;
 		}

@@ -1,4 +1,4 @@
-import { ICandidate } from '../..';
+import type { ICandidate } from '../..';
 import AppError from '../error/AppError';
 
 export const batchMaker = (data: ICandidate[]): ICandidate[][] => {
