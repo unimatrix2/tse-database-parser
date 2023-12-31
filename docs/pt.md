@@ -27,6 +27,10 @@ e é isso. Será um processo mais simples quando o pacote for publicado no NPM.
 4. ``` npm link ```
 5. Utilizar como ``` tseparser <file path> <mongodb uri>```
 
+É importante reforçar que os arquivos utilizados devem seguir o modelo de dados padrão do TSE, tanto para nomenclatura de arquivos CSV quanto para campos do documento. É recomendado utilizar os nomes orignais dos arquivos do acervo digital do TSE (consulta_cand_YYYY.csv), mas qualquer nome de arquivo que contenha o ano da eleição em YYYY é aceito.
+
+Para mais informações sobre o modelo de dados padrão do TSE, o acervo de 1994-2022 contém em cada compactado um arquivo LEIAME com as especificações do modelo.
+
 ## Comandos
 
 Por enquanto só há 1 comando base: parse. Outros comandos estão no backlog mas essa ferramenta está sendo desenvolvida

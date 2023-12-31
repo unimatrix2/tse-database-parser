@@ -25,6 +25,10 @@ and that's it. Things will be simpler when it's published on NPM.
 4. ``` npm link ```
 5. Run from linked PATH as ``` tseparser <file path> <mongodb uri>```
 
+It is important to reinforce that the files used must follow the SEC's standard data model, both for CSV file naming and document fields. It is recommended to use the original names of the files from the SEC's digital collection (consulta_cand_YYYY.csv), but any file name containing the election year in YYYY format is accepted.
+
+For more information about the SEC's standard data model, the collection from 1994-2022 contains a LEIAME (README) file in each compressed folder with the specifications of the model.s
+
 ## Commands
 
 Right now, there's only one base command: parse. More commands are backlogged but this tool is being developed
