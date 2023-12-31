@@ -6,7 +6,7 @@ import { loggingColors as log } from './enum.lib';
 import { handleParsedErrors } from './util.lib';
 import type { ICandidate } from '../..';
 
-export async function* parse(url: string) {
+export async function* parse(url: string): AsyncGenerator<ICandidate[]> {
 	const batchSize = 5000;
 	let batch: ICandidate[] = [];
 
@@ -48,6 +48,6 @@ export async function* parse(url: string) {
 			logStream.close();
 			break;
 		}
-		yield result;
+		if (result instanceof Array) yield result;
 	}
 }
