@@ -1,5 +1,6 @@
 import 'colors';
 
+import { AppError } from '../..';
 import { parse } from '../lib/parser.lib';
 import TseCandidate from '../models/Candidate.model';
 import { loggingColors as log } from '../lib/enum.lib';
@@ -12,7 +13,15 @@ export async function parseAndImportDb(pathUri: string, mongoUri: string) {
 		for await (const batch of parse(pathUri)) {
 			promises.push(TseCandidate.insertMany(batch)
 				.then(() => console.log(`${log.success}Batch entries imported with success`))
-				.catch((err) => console.log(log.error, err))
+				.catch((err: any) => {
+					console.log(log.error, err);
+					throw new AppError({
+						message: err.message || 'Error importing batch entries',
+						method: 'parseAndImportDb',
+						module: 'ParseService',
+						field: JSON.stringify(batch, null, 2)
+					})
+				})
 			);
 		}
 		await Promise.all(promises);
