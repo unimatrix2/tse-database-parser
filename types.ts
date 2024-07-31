@@ -11,7 +11,7 @@ export interface ErrorParams {
 	field?: string | any[];
 }
 
-export declare interface ICandidate {
+export interface ICandidate {
 	DT_GERACAO: string;
 	HH_GERACAO: string;
 	ANO_ELEICAO: number;
@@ -75,28 +75,4 @@ export declare interface ICandidate {
 	CD_SITUACAO_CANDIDATO_URNA: number;
 	DS_SITUACAO_CANDIDATO_URNA: string;
 	ST_CANDIDATO_INSERIDO_URNA: string;
-}
-
-// ParserLib Methods
-export declare function parse<ICandidate>(url: string): AsyncGenerator<any, void, unknown>;
-
-// ParseService Methods
-export declare const parser: (pathUri: string, mongoUri: string) => Promise<void>;
-
-export interface IParseResult extends Omit<ParseResult, 'data'> {
-	data: ICandidate[]
-}
-
-// DB Config Methods
-export declare const mongoConnect: (url: string) => Promise<void>;
-export declare const mongoDisconnect: () => Promise<void>;
-
-// Error Interfaces
-export declare class AppError extends Error {
-    method: string;
-    module: string;
-    step?: string;
-    index?: number;
-    field?: string | any[];
-    constructor(params: ErrorParams);
 }

@@ -1,6 +1,6 @@
 import 'colors';
 
-import { AppError } from '../..';
+import AppError  from '../error/AppError';
 import { parse } from '../lib/parser.lib';
 import TseCandidate from '../models/Candidate.model';
 import { loggingColors as log } from '../lib/enum.lib';

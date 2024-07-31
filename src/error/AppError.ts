@@ -1,6 +1,6 @@
 import 'colors';
 
-import { ErrorParams } from '../..';
+import { ErrorParams } from '../../types';
 
 const optionalParamsMapper = (
 	optional: string | number | undefined | any[]

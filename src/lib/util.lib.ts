@@ -4,7 +4,7 @@ import type { ParseResult, ParseStepResult } from 'papaparse';
 
 import AppError from '../error/AppError';
 import { loggingColors as log } from './enum.lib';
-import type { ICandidate } from '../..';
+import type { ICandidate } from '../../types';
 
 export function handleParsedErrors(results: ParseStepResult<ICandidate> | ParseResult<ICandidate>, stream: WriteStream): void {
 	const errorData = new AppError({
