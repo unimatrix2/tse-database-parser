@@ -4,18 +4,18 @@ import { createReadStream, createWriteStream } from 'fs';
 
 import { loggingColors as log } from './enum.lib';
 import { handleParsedErrors } from './util.lib';
-import type { ICandidate } from '../..';
+import type { ICandidate } from '../../types';
 
 export async function* parse(url: string): AsyncGenerator<ICandidate[]> {
 	const batchSize = 5000;
 	let batch: ICandidate[] = [];
 
 	let resolve: (value: ICandidate[] | { done: boolean }) => void;
-  	let promise = new Promise<ICandidate[] | { done: boolean }>(r => resolve = r);
+  let promise = new Promise<ICandidate[] | { done: boolean }>(r => resolve = r);
 	const logStream = createWriteStream(__dirname + '/../../../log.ndjson', { flags: 'a' });
 
 	Papa.parse<ICandidate>(createReadStream(url), {
-		encoding: 'utf8',
+		encoding: 'latin1',
 		header: true,
 		skipEmptyLines: true,
 		delimiter: ';',
@@ -44,10 +44,10 @@ export async function* parse(url: string): AsyncGenerator<ICandidate[]> {
 
 	while (true) {
 		const result = await promise;
+		if (result instanceof Array) yield result;
 		if (!(result instanceof Array) && result.done) {
 			logStream.close();
-			break;
+			return;
 		}
-		if (result instanceof Array) yield result;
 	}
 }
