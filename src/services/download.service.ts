@@ -1,6 +1,7 @@
 import 'colors';
 import { loggingColors as log } from '../lib/enum.lib';
 import { createWriteStream } from 'fs';
+import { logger } from '../configs/logger.config';
 import { TSE_BASE_FILE_NAME, TSE_CDN_BASE_URL, TSE_DOWNLOAD_FILE_EXT } from '../const/download.const';
 
 export async function download(years: string, path: string) {
@@ -10,20 +11,23 @@ export async function download(years: string, path: string) {
   const requests = [...parsedYears].map(year => {
     const url = `${TSE_CDN_BASE_URL}${TSE_BASE_FILE_NAME}${year}${TSE_DOWNLOAD_FILE_EXT}`;
     return fetch(url).then(async response => {
-      if (!response.ok) throw new Error(`${log.error}Failed to download data from url: ${url}`);
+      if (!response.ok) {
+        logger.error(`${log.error} Failed to download data from url: ${url}`);
+        throw new Error(`Failed to download data from url: ${url}`);
+      }
       
       const filePath = `${path}/${TSE_BASE_FILE_NAME}${year}${TSE_DOWNLOAD_FILE_EXT}`;
       const writeStream = createWriteStream(filePath);
-      console.log(log.info + 'Saving data to:', filePath);
+      logger.info(`${log.info} Saving data to: ${filePath}`);
       const arrayBuffer = await response.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       writeStream.write(buffer);
-      console.log(log.success + 'Data saved to:', filePath);
+      logger.info(`${log.success} Data saved to: ${filePath}`);
     });
   });
 
   await Promise.all(requests);
-  console.log(log.success + 'All data saved to:', path);
+  logger.info(`${log.success} All data saved to: ${path}`);
 }
 
 function validateYear(year: string) {
